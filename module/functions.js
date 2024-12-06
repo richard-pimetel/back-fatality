@@ -73,13 +73,13 @@ const filtrarPorStatus = (status) => {
 }
 
 const cursoEStatus  = (siglaCurso, status) => {
-    let resultado =  { curso: siglaCurso.toUpperCase(), status: status.toUpperCase(), alunos: [] }
+    let resultado = { curso: siglaCurso, status: status, alunos: [] }
 
     listaAlunos.forEach(function(alunoAtual) {
         let disciplinasFiltradas = []
 
         alunoAtual.curso.forEach(function(cursoDoAluno) {
-            if (cursoDoAluno.sigla.toUpperCase() === siglaCurso.toUpperCase()) {
+            if (cursoDoAluno.sigla === siglaCurso) {
                 cursoDoAluno.disciplinas.forEach(function(disciplina) {
                     if (disciplina.status === status) {
                         disciplinasFiltradas.push(disciplina)
@@ -101,26 +101,26 @@ const cursoEStatus  = (siglaCurso, status) => {
     return resultado
 }
 
-
 //console.log(cursoEStatus('ds' , 'Aprovado'))
 
 
 const filtrarPorAnoConclusao = (siglaCurso, anoConclusao) => {
-    let resultado = { curso: siglaCurso.toUpperCase(), anoConclusao: anoConclusao, alunos: [] };
+    let resultado = { curso: siglaCurso, anoConclusao: anoConclusao, alunos: [] }
 
     listaAlunos.forEach(function(alunoAtual) {
         alunoAtual.curso.forEach(function(cursoDoAluno) {
-            if (cursoDoAluno.sigla.toUpperCase() === siglaCurso.toUpperCase() && cursoDoAluno.conclusao === anoConclusao) {
-                resultado.alunos.push(alunoAtual);
-            } else {
-                if (resultado.alunos.length < 1) {
-                    resultado = false;
+            if (cursoDoAluno.sigla === siglaCurso && cursoDoAluno.conclusao === anoConclusao) {
+                resultado.alunos.push(alunoAtual)
+            }
+            else{
+                if(resultado.alunos.length < 0){
+                    resultado = false
                 }
             }
-        });
-    });
+        })
+    })
 
-    return resultado;
+    return resultado
 }
 
 const aplicarFiltros = (status, curso, statusAluno, anoConclusao) => {
